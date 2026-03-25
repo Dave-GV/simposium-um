@@ -1,5 +1,6 @@
 package com.example.simposium.auth.config;
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +22,7 @@ class SecurityConfigIntegrationTest {
 
     @Test
     void shouldReturnUnauthorizedForProtectedRouteWithoutToken() throws Exception {
-        mockMvc.perform(get("/api/private"))
+        mockMvc.perform(get("/api/private/me"))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -50,6 +51,24 @@ class SecurityConfigIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"correo-invalido\",\"password\":\"\"}"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldAccessPrivateEndpointWithValidBearerToken() throws Exception {
+        String loginResponse = mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"demo@simposium.com\",\"password\":\"demo123\"}"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        String accessToken = JsonPath.read(loginResponse, "$.accessToken");
+
+        mockMvc.perform(get("/api/private/me")
+                        .header("Authorization", "Bearer " + accessToken))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email").value("demo@simposium.com"));
     }
 }
 
