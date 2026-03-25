@@ -1,4 +1,4 @@
-package com.DLD.dashboard.models;
+package com.example.simposium.models;
 
 import jakarta.persistence.*;
 import lombok.Data;

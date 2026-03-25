@@ -1,6 +1,6 @@
-package com.DLD.dashboard.repositories;
+package com.example.simposium.repositories;
 
-import com.DLD.dashboard.models.Ponencia;
+import com.example.simposium.models.Ponencia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
