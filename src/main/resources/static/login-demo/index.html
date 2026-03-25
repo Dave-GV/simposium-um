@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Simposium</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<main class="container">
+    <h1>Acceso a Simposium</h1>
+    <p class="subtitle">Inicia sesion para continuar</p>
+
+    <section class="card">
+        <h2>Iniciar sesion</h2>
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="tu@email.com" required />
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="Tu contrasena" required />
+
+            <button type="submit">Login</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Cuenta</h2>
+        <button id="meButton" type="button">GET /api/private/me</button>
+        <button id="logoutButton" type="button" class="button-secondary">Cerrar sesion</button>
+    </section>
+
+    <section class="card">
+        <h2>Respuesta</h2>
+        <pre id="output">Esperando accion...</pre>
+    </section>
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>
+

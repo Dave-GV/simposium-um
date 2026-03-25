@@ -61,7 +61,7 @@ public class SecurityConfig {
                         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase())))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/api/public/**").permitAll()
+                        .requestMatchers("/auth/login", "/api/public/**", "/login-demo/**", "/", "/error").permitAll()
                         .anyRequest().authenticated());
 
         return http.build();
