@@ -34,5 +34,13 @@ class SecurityConfigIntegrationTest {
                 .andExpect(jsonPath("$.message").value("Login base listo"))
                 .andExpect(jsonPath("$.email").value("demo@correo.com"));
     }
+
+    @Test
+    void shouldReturnBadRequestWhenLoginPayloadIsInvalid() throws Exception {
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"correo-invalido\",\"password\":\"\"}"))
+                .andExpect(status().isBadRequest());
+    }
 }
 
