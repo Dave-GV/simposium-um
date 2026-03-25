@@ -21,23 +21,37 @@ loginForm.addEventListener("submit", async (event) => {
 
   render({ status: "loading", action: "POST /auth/login" });
 
-  const response = await fetch("/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  });
+  // Evita que la UI se quede colgada si el backend no responde.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-  if (!response.ok) {
-    render({ status: response.status, error: "Credenciales invalidas" });
-    return;
+  try {
+    const response = await fetch("/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      render({ status: response.status, error: "Credenciales invalidas" });
+      return;
+    }
+
+    const data = await response.json();
+    token = data.accessToken;
+    sessionStorage.setItem("accessToken", token);
+    render({ status: response.status, user: data.email, note: "Sesion iniciada" });
+  } catch (error) {
+    const detail = error?.name === "AbortError"
+      ? "Timeout al conectar con /auth/login"
+      : "No se pudo conectar al backend";
+    render({ status: "error", error: detail });
+  } finally {
+    clearTimeout(timeoutId);
   }
-
-  const data = await response.json();
-  token = data.accessToken;
-  sessionStorage.setItem("accessToken", token);
-  render({ status: response.status, user: data.email, note: "Sesion iniciada" });
 });
 
 meButton.addEventListener("click", async () => {

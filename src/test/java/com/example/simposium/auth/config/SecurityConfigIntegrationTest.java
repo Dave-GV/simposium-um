@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,6 +20,20 @@ class SecurityConfigIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Test
+    void shouldServeFrontendAtRoot() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/login-demo/index.html"));
+    }
+
+    @Test
+    void shouldServeFrontendAtLoginDemoPath() throws Exception {
+        mockMvc.perform(get("/login-demo/"))
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/login-demo/index.html"));
+    }
 
     @Test
     void shouldReturnUnauthorizedForProtectedRouteWithoutToken() throws Exception {
