@@ -26,13 +26,22 @@ class SecurityConfigIntegrationTest {
     }
 
     @Test
-    void shouldAllowPublicAuthRouteThroughSecurityChain() throws Exception {
+    void shouldLoginSuccessfullyWithDemoCredentials() throws Exception {
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"demo@correo.com\",\"password\":\"1234\"}"))
+                        .content("{\"email\":\"demo@simposium.com\",\"password\":\"demo123\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("Login base listo"))
-                .andExpect(jsonPath("$.email").value("demo@correo.com"));
+                .andExpect(jsonPath("$.accessToken").exists())
+                .andExpect(jsonPath("$.tokenType").value("Bearer"))
+                .andExpect(jsonPath("$.email").value("demo@simposium.com"));
+    }
+
+    @Test
+    void shouldReturnUnauthorizedWithIncorrectCredentials() throws Exception {
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"demo@simposium.com\",\"password\":\"wrongpassword\"}"))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test

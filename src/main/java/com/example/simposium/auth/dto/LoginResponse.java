@@ -2,16 +2,22 @@ package com.example.simposium.auth.dto;
 
 public class LoginResponse {
 
-    private final String message;
+    private final String accessToken;
+    private final String tokenType;
     private final String email;
 
-    public LoginResponse(String message, String email) {
-        this.message = message;
+    public LoginResponse(String accessToken, String tokenType, String email) {
+        this.accessToken = accessToken;
+        this.tokenType = tokenType;
         this.email = email;
     }
 
-    public String getMessage() {
-        return message;
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getTokenType() {
+        return tokenType;
     }
 
     public String getEmail() {
