@@ -1,5 +1,6 @@
 package com.example.simposium.auth.service;
 
+import com.example.simposium.auth.config.DemoUserProperties;
 import com.example.simposium.auth.dto.LoginRequest;
 import com.example.simposium.auth.dto.LoginResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,15 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    // Usuario demo hardcoded (para demo/dev, en producción sería de DB)
-    private static final String DEMO_EMAIL = "demo@simposium.com";
-    private static final String DEMO_PASSWORD = "demo123";
-
     private final JwtService jwtService;
+    private final DemoUserProperties demoUserProperties;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(JwtService jwtService, PasswordEncoder passwordEncoder) {
+    public AuthService(JwtService jwtService, DemoUserProperties demoUserProperties, PasswordEncoder passwordEncoder) {
         this.jwtService = jwtService;
+        this.demoUserProperties = demoUserProperties;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -28,13 +27,13 @@ public class AuthService {
      */
     public LoginResponse authenticateAndGenerateToken(LoginRequest request) {
         // Validar email
-        if (!request.getEmail().equals(DEMO_EMAIL)) {
+        if (!request.getEmail().equals(demoUserProperties.getEmail())) {
             throw new IllegalArgumentException("Email o contraseña incorrectos");
         }
 
         // Validar password usando PasswordEncoder.matches()
         // Este método compara: password en texto plano vs hash guardado
-        if (!passwordEncoder.matches(request.getPassword(), passwordEncoder.encode(DEMO_PASSWORD))) {
+        if (!passwordEncoder.matches(request.getPassword(), passwordEncoder.encode(demoUserProperties.getPassword()))) {
             throw new IllegalArgumentException("Email o contraseña incorrectos");
         }
 

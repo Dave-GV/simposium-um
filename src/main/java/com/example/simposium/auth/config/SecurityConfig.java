@@ -20,6 +20,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final DemoUserProperties demoUserProperties;
+
+    public SecurityConfig(DemoUserProperties demoUserProperties) {
+        this.demoUserProperties = demoUserProperties;
+    }
+
     /**
      * PasswordEncoder para encriptar/verificar contraseñas
      * BCryptPasswordEncoder es estándar de seguridad
@@ -38,9 +44,9 @@ public class SecurityConfig {
         // Crear usuario demo con rol USER
         UserDetails demoUser = User.builder()
                 // Email del usuario
-                .username("demo@simposium.com")
+                .username(demoUserProperties.getEmail())
                 // Password en texto (será hasheado en runtime)
-                .password(passwordEncoder().encode("demo123"))
+                .password(passwordEncoder().encode(demoUserProperties.getPassword()))
                 // Rol por defecto
                 .roles("USER")
                 .build();
