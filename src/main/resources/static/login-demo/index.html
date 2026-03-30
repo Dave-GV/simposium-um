@@ -8,31 +8,37 @@
 </head>
 <body>
 <main class="container">
-    <h1>Acceso a Simposium</h1>
-    <p class="subtitle">Inicia sesion para continuar</p>
+    <header class="hero">
+        <h1>Acceso a Simposium</h1>
+        <p class="subtitle">Inicia sesion para consultar tus datos protegidos.</p>
+    </header>
 
     <section class="card">
         <h2>Iniciar sesion</h2>
-        <form id="loginForm">
+        <form id="loginForm" novalidate>
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="tu@email.com" required />
+            <input id="email" name="email" type="email" placeholder="tu@email.com" autocomplete="email" required />
 
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="Tu contrasena" required />
+            <input id="password" name="password" type="password" placeholder="Tu contrasena" autocomplete="current-password" required />
 
-            <button type="submit">Login</button>
+            <button id="loginButton" type="submit">Iniciar sesion</button>
         </form>
+        <p class="hint">Usa tu cuenta autorizada para acceder a recursos protegidos.</p>
     </section>
 
     <section class="card">
         <h2>Cuenta</h2>
-        <button id="meButton" type="button">GET /api/private/me</button>
-        <button id="logoutButton" type="button" class="button-secondary">Cerrar sesion</button>
+        <div class="actions">
+            <button id="meButton" type="button" disabled>Ver mi perfil</button>
+            <button id="logoutButton" type="button" class="button-secondary" disabled>Cerrar sesion</button>
+        </div>
     </section>
 
     <section class="card">
-        <h2>Respuesta</h2>
-        <pre id="output">Esperando accion...</pre>
+        <h2>Estado</h2>
+        <p id="statusMessage" class="status status-neutral" role="status" aria-live="polite">Esperando inicio de sesion.</p>
+        <ul id="statusDetails" class="status-details" aria-live="polite"></ul>
     </section>
 </main>
 
