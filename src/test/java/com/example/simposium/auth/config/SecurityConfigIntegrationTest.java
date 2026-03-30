@@ -57,7 +57,10 @@ class SecurityConfigIntegrationTest {
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"demo@simposium.com\",\"password\":\"wrongpassword\"}"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.code").value("AUTH_INVALID_CREDENTIALS"))
+                .andExpect(jsonPath("$.path").value("/auth/login"));
     }
 
     @Test
@@ -65,7 +68,11 @@ class SecurityConfigIntegrationTest {
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"correo-invalido\",\"password\":\"\"}"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.code").value("AUTH_VALIDATION_ERROR"))
+                .andExpect(jsonPath("$.details.email").value("El email no es valido"))
+                .andExpect(jsonPath("$.details.password").value("La password es obligatoria"));
     }
 
     @Test

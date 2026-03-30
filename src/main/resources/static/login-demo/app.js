@@ -36,7 +36,13 @@ loginForm.addEventListener("submit", async (event) => {
     });
 
     if (!response.ok) {
-      render({ status: response.status, error: "Credenciales invalidas" });
+      const errorBody = await response.json().catch(() => ({}));
+      render({
+        status: response.status,
+        code: errorBody.code || "AUTH_ERROR",
+        error: errorBody.message || "No se pudo iniciar sesion",
+        details: errorBody.details || null,
+      });
       return;
     }
 

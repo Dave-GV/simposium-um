@@ -23,18 +23,18 @@ public class AuthService {
      * Autentica un usuario y genera token JWT
      * @param request credentials (email, password)
      * @return LoginResponse con token si credentials son correctas
-     * @throws IllegalArgumentException si email/password son inválidos
+     * @throws InvalidCredentialsException si email/password son invalidos
      */
     public LoginResponse authenticateAndGenerateToken(LoginRequest request) {
         // Validar email
         if (!request.getEmail().equals(demoUserProperties.getEmail())) {
-            throw new IllegalArgumentException("Email o contraseña incorrectos");
+            throw new InvalidCredentialsException();
         }
 
         // Validar password usando PasswordEncoder.matches()
         // Este método compara: password en texto plano vs hash guardado
         if (!passwordEncoder.matches(request.getPassword(), passwordEncoder.encode(demoUserProperties.getPassword()))) {
-            throw new IllegalArgumentException("Email o contraseña incorrectos");
+            throw new InvalidCredentialsException();
         }
 
         // Credenciales válidas → generar token
