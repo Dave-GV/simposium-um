@@ -171,3 +171,23 @@ logoutButton.addEventListener("click", () => {
   setStatus("neutral", "Sesion cerrada.");
 });
 
+// Registro - solo visual
+const registerForm = document.getElementById("registerForm");
+if (registerForm) {
+  registerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("register-name").value.trim();
+    const email = document.getElementById("register-email").value.trim();
+
+    // Mostrar éxito (solo visual)
+    setStatus("success", "¡Cuenta creada exitosamente!", [
+      `Nombre: ${name}`,
+      `Email: ${email}`,
+    ]);
+
+    // Limpiar formulario
+    registerForm.reset();
+  });
+}
+
