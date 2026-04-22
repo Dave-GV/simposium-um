@@ -33,6 +33,26 @@ function pintarErroresCampos(details) {
   });
 }
 
+// ---------- Toggle mostrar/ocultar contraseña ----------
+$$('.toggle-pass').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = document.getElementById(btn.dataset.target);
+    const eyeOn  = btn.querySelector('.eye-icon');
+    const eyeOff = btn.querySelector('.eye-off-icon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      eyeOn.style.display  = 'none';
+      eyeOff.style.display = '';
+      btn.setAttribute('aria-label', 'Ocultar contraseña');
+    } else {
+      input.type = 'password';
+      eyeOn.style.display  = '';
+      eyeOff.style.display = 'none';
+      btn.setAttribute('aria-label', 'Mostrar contraseña');
+    }
+  });
+});
+
 // ---------- Indicador de fortaleza de password ----------
 const inputPwd = $('#contrasena');
 const strengthEl = $('#strength');
