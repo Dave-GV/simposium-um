@@ -1,0 +1,27 @@
+package com.example.simposium.auth.dto;
+
+public class LoginResponse {
+
+    private final String accessToken;
+    private final String tokenType;
+    private final String email;
+
+    public LoginResponse(String accessToken, String tokenType, String email) {
+        this.accessToken = accessToken;
+        this.tokenType = tokenType;
+        this.email = email;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getTokenType() {
+        return tokenType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+}
+
