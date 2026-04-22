@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Administrador · Simposium UM</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-logo">SUM</span>
+        <div class="brand-text">
+          <strong>Simposium UM</strong>
+          <span>Panel de control · Módulo Registro de Administradores</span>
+        </div>
+      </div>
+      <nav class="topnav">
+        <a href="/login-demo/">Login</a>
+        <a class="active" href="/registro-admin/">Registro Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Columna izquierda: formulario -->
+    <section class="panel form-panel">
+      <header class="panel-header">
+        <div>
+          <h1>Registrar nuevo administrador</h1>
+          <p class="subtitle">
+            Crea cuentas con acceso al panel. Los datos se validan en
+            tiempo real.
+          </p>
+        </div>
+      </header>
+
+      <form id="form-registro" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="nombreCompleto">Nombre completo *</label>
+            <input id="nombreCompleto" name="nombreCompleto"
+                   type="text" placeholder="Ej. Juan Pérez García" required />
+            <small class="error" data-error-for="nombreCompleto"></small>
+          </div>
+
+          <div class="field">
+            <label for="nombreUsuario">Nombre de usuario *</label>
+            <input id="nombreUsuario" name="nombreUsuario"
+                   type="text" placeholder="juan.perez" required />
+            <small class="error" data-error-for="nombreUsuario"></small>
+          </div>
+
+          <div class="field field-wide">
+            <label for="correoElectronico">Correo electrónico *</label>
+            <input id="correoElectronico" name="correoElectronico"
+                   type="email" placeholder="admin@simposium.com" required />
+            <small class="error" data-error-for="correoElectronico"></small>
+          </div>
+
+          <div class="field">
+            <label for="numeroTelefono">Número de teléfono</label>
+            <input id="numeroTelefono" name="numeroTelefono"
+                   type="tel" placeholder="+52 55 1234 5678" />
+            <small class="error" data-error-for="numeroTelefono"></small>
+          </div>
+
+          <div class="field">
+            <label for="rolAdministrador">Rol *</label>
+            <select id="rolAdministrador" name="rolAdministrador" required>
+              <option value="">Selecciona un rol…</option>
+              <option value="ADMIN">Administrador</option>
+              <option value="SUPER_ADMIN">Super administrador</option>
+            </select>
+            <small class="error" data-error-for="rolAdministrador"></small>
+          </div>
+
+          <div class="field">
+            <label for="contrasena">Contraseña *</label>
+            <input id="contrasena" name="contrasena"
+                   type="password" placeholder="Mínimo 8 caracteres"
+                   required autocomplete="new-password" />
+            <div class="strength" id="strength">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <small class="hint">Debe incluir al menos una letra y un número.</small>
+            <small class="error" data-error-for="contrasena"></small>
+          </div>
+
+          <div class="field">
+            <label for="confirmarContrasena">Confirmar contraseña *</label>
+            <input id="confirmarContrasena" name="confirmarContrasena"
+                   type="password" placeholder="Repite la contraseña"
+                   required autocomplete="new-password" />
+            <small class="error" data-error-for="confirmarContrasena"></small>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary" id="btn-registrar">
+            <span>Registrar administrador</span>
+          </button>
+          <button type="reset" class="btn-ghost">Limpiar</button>
+        </div>
+
+        <div id="mensaje" class="mensaje" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- Columna derecha: lista de admins -->
+    <aside class="panel list-panel">
+      <header class="panel-header">
+        <div>
+          <h2>Administradores registrados</h2>
+          <p class="subtitle" id="contador-admins">Cargando…</p>
+        </div>
+        <button class="btn-icon" id="btn-recargar" title="Recargar">
+          ↻
+        </button>
+      </header>
+
+      <div class="list" id="lista-admins">
+        <div class="empty">Sin administradores registrados.</div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Modal editar -->
+  <div class="modal-backdrop hidden" id="modal-editar">
+    <div class="modal">
+      <header>
+        <h3>Editar administrador</h3>
+        <button class="btn-icon" id="modal-cerrar">✕</button>
+      </header>
+      <form id="form-editar">
+        <input type="hidden" id="edit-id" />
+        <div class="field">
+          <label>Nombre completo</label>
+          <input id="edit-nombre" type="text" />
+        </div>
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input id="edit-correo" type="email" />
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input id="edit-telefono" type="tel" />
+        </div>
+        <div class="field">
+          <label>Rol</label>
+          <select id="edit-rol">
+            <option value="ADMIN">Administrador</option>
+            <option value="SUPER_ADMIN">Super administrador</option>
+          </select>
+        </div>
+        <div class="field check">
+          <input type="checkbox" id="edit-activo" />
+          <label for="edit-activo">Cuenta activa</label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn-primary">Guardar cambios</button>
+          <button type="button" class="btn-ghost" id="modal-cancelar">Cancelar</button>
+        </div>
+        <div id="mensaje-editar" class="mensaje"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

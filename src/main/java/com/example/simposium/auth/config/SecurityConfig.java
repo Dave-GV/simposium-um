@@ -60,6 +60,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
@@ -67,7 +68,15 @@ public class SecurityConfig {
                         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase())))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/api/public/**", "/login-demo/**", "/", "/error").permitAll()
+                        .requestMatchers(
+                                "/auth/login",
+                                "/api/public/**",
+                                "/login-demo/**",
+                                "/registro-admin/**",
+                                "/api/admin/**",
+                                "/",
+                                "/error"
+                        ).permitAll()
                         .anyRequest().authenticated());
 
         return http.build();
