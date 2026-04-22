@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Simposium</title>
+    <link rel="stylesheet" href="/login-demo/styles.css"/>
+</head>
+<body>
+<main class="container">
+    <header class="hero">
+        <h1>Acceso a Simposium-UM</h1>
+        <p class="subtitle">Inicia sesion.</p>
+    </header>
+
+    <section class="card">
+        <h2>Iniciar sesion</h2>
+        <form id="loginForm" novalidate>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="tu@email.com" autocomplete="email" required />
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="Tu contrasena" autocomplete="current-password" required />
+
+            <button id="loginButton" type="submit">Iniciar sesion</button>
+        </form>
+        <p class="hint">Usa tu cuenta autorizada para acceder a recursos protegidos.</p>
+        <p class="hint"><a href="/login-demo/register.html" style="color: #2563eb; text-decoration: none; font-weight: 600;">¿No tienes cuenta? Regístrate aquí</a></p>
+    </section>
+
+    <section class="card">
+        <h2>Cuenta</h2>
+        <div class="actions">
+            <button id="meButton" type="button" disabled>Ver mi perfil</button>
+            <button id="logoutButton" type="button" class="button-secondary" disabled>Cerrar sesion</button>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Estado</h2>
+        <p id="statusMessage" class="status status-neutral" role="status" aria-live="polite">Esperando inicio de sesion.</p>
+        <ul id="statusDetails" class="status-details" aria-live="polite"></ul>
+    </section>
+</main>
+
+<script src="/login-demo/app.js"></script>
+</body>
+</html>
+

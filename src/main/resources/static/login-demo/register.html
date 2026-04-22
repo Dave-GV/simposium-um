@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - Simposium</title>
+    <link rel="stylesheet" href="/login-demo/styles.css"/>
+</head>
+<body>
+<main class="container">
+    <header class="hero">
+        <h1>Registro en Simposium-UM</h1>
+        <p class="subtitle">Crea tu cuenta para acceder.</p>
+    </header>
+
+    <section class="card">
+        <h2>Crear cuenta</h2>
+        <form id="registerForm" novalidate>
+            <label for="register-name">Nombre Completo</label>
+            <input id="register-name" name="name" type="text" placeholder="Tu nombre completo" required />
+
+            <label for="register-email">Email</label>
+            <input id="register-email" name="email" type="email" placeholder="tu@email.com" autocomplete="email" required />
+
+            <label for="register-password">Contraseña</label>
+            <input id="register-password" name="password" type="password" placeholder="Al menos 8 caracteres" autocomplete="new-password" required />
+
+            <label for="register-password-confirm">Confirmar Contraseña</label>
+            <input id="register-password-confirm" name="password-confirm" type="password" placeholder="Repite tu contraseña" autocomplete="new-password" required />
+
+            <button id="registerButton" type="submit">Crear cuenta</button>
+        </form>
+        <p class="hint">Por ahora este registro es de prueba visual. Los datos se guardan localmente en tu navegador.</p>
+    </section>
+
+    <section class="card">
+        <h2>Estado</h2>
+        <p id="statusMessage" class="status status-neutral" role="status" aria-live="polite">Completa el formulario para crear tu cuenta.</p>
+        <ul id="statusDetails" class="status-details" aria-live="polite"></ul>
+    </section>
+</main>
+
+<script src="/login-demo/app.js"></script>
+</body>
+</html>

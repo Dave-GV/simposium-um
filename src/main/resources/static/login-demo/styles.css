@@ -1,0 +1,187 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f1f5f9;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 720px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.hero h1 {
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 1.2rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  margin-left: 0.5rem;
+  background: #6b7280;
+}
+
+.button-secondary:hover:not(:disabled) {
+  background: #4b5563;
+}
+
+.hint {
+  margin: 0.75rem 0 0;
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.status {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.status-neutral {
+  background: #f8fafc;
+  border: 1px solid #dbeafe;
+  color: #1e293b;
+}
+
+.status-success {
+  background: #ecfdf5;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.status-error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+.status-loading {
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
+  color: #1d4ed8;
+}
+
+.status-details {
+  margin: 0.7rem 0 0;
+  padding-left: 1.2rem;
+  color: #334155;
+}
+
+.status-details:empty {
+  display: none;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+}
+
+.tab-button {
+  flex: 1;
+  background: transparent;
+  color: #6b7280;
+  border: none;
+  border-radius: 0;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s ease;
+}
+
+.tab-button:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.tab-button.tab-active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  background: transparent;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.tab-active {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
